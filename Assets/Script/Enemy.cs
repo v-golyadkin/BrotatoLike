@@ -45,18 +45,6 @@ public class Enemy : MonoBehaviour, IDamageable
             Destroy(gameObject);
     }
 
-    public void Hit(int damage)
-    {
-        _currentHealth -= damage;
-        _animator.SetTrigger("hit");
-
-        if(_currentHealth < 0)
-        {
-            Die();
-        }
-
-    }
-
     public void Die()
     {
         Destroy(gameObject);
