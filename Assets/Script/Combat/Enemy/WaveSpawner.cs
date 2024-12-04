@@ -2,12 +2,12 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 
-public class WaveManager : MonoBehaviour
+public class WaveSpawner : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI timeText;
     [SerializeField] private TextMeshProUGUI waveText;
 
-    public static WaveManager Instance;
+    public static WaveSpawner Instance;
 
     private bool _waveRunning = true;
     private int _currentWave = 0;

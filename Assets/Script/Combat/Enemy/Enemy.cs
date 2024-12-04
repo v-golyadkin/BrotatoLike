@@ -3,7 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public class Enemy : MonoBehaviour, IDamageable
 {
-    [SerializeField] private int maxHealth = 100;
+    [SerializeField] private int maxHealth = 2;
     [SerializeField] private float moveSpeed = 2f;
 
     private Animator _animator;
@@ -42,11 +42,16 @@ public class Enemy : MonoBehaviour, IDamageable
         _animator.SetTrigger("hit");
 
         if(_currentHealth <= 0)
-            Destroy(gameObject);
+        {
+            Die();
+        }
+            
     }
 
     public void Die()
     {
-        Destroy(gameObject);
+        CoinWallet.Instance.AddCoins(1);
+
+        Destroy(gameObject);     
     }
 }

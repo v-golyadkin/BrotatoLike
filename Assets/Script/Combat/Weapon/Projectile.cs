@@ -13,11 +13,15 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if(collision.gameObject.tag == "Player")
+        {
+            return;
+        }
         var enemy = collision.gameObject.GetComponent<IDamageable>();
-        if(enemy != null)
+        if (enemy != null)
         {
             Destroy(gameObject);
-            enemy.Hit(25);
+            enemy.Hit(1);
         }
     }
 }

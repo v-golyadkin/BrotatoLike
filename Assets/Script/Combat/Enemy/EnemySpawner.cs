@@ -30,7 +30,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void Update()
     {
-        if (!WaveManager.Instance.WaveRunning()) { return; }
+        if (!WaveSpawner.Instance.WaveRunning()) { return; }
 
         _currentTimeBetweenSpawns -= Time.deltaTime;
 

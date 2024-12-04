@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -8,7 +9,12 @@ public class Player : MonoBehaviour, IDamageable
     [SerializeField] private TextMeshProUGUI healthText;
 
     [SerializeField] private float moveSpeed = 6f;
-    [SerializeField] private int maxHealth = 100;
+    [SerializeField] private int maxHealth = 10;
+
+    public event Action<int> OnHealthChanged;
+
+    //public int CurrentHealth => _currentHealth;
+    public int MaxHealth => maxHealth;
 
     private Rigidbody2D _body;
     private Animator _animator;
@@ -29,15 +35,21 @@ public class Player : MonoBehaviour, IDamageable
 
     private void Start()
     {
-        _currentHealth = maxHealth;
-        healthText.text = maxHealth.ToString();
+        FullHeal();
+        //_currentHealth = maxHealth;
+        //healthText.text = maxHealth.ToString();
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space)) 
         {
-            Hit(10);
+            Hit(1);
+        }
+
+        if(Input.GetKeyDown(KeyCode.H))
+        {
+            Heal(1);
         }
 
         if(_isDead)
@@ -70,14 +82,32 @@ public class Player : MonoBehaviour, IDamageable
         Enemy enemy = collision.gameObject.GetComponent<Enemy>();
 
         if (enemy != null)
-            Hit(20);
+            Hit(1);
+    }
+
+    private void FullHeal()
+    {
+        Heal(maxHealth);
+    }
+
+    private void Heal(int amount)
+    {
+        _currentHealth += amount;
+
+        if(_currentHealth > maxHealth)
+        {
+            _currentHealth = maxHealth;
+        }
+
+        OnHealthChanged?.Invoke(_currentHealth);
     }
 
     public void Hit(int damage)
     {
         _animator.SetTrigger("hit");
         _currentHealth -= damage;
-        healthText.text = Mathf.Clamp(_currentHealth, 0, maxHealth).ToString();
+        //healthText.text = Mathf.Clamp(_currentHealth, 0, maxHealth).ToString();
+        OnHealthChanged?.Invoke(_currentHealth);
 
         if (_currentHealth <= 0)
         {
@@ -89,6 +119,6 @@ public class Player : MonoBehaviour, IDamageable
     {
         _isDead = true;
 
-        GameManager.Instance.GameOver();
+        GameState.Instance.GameOver();
     }
 }   
