@@ -31,15 +31,10 @@ public class GunSpawner : MonoBehaviour
         _gunFactory = new GunFactory();
     }
 
-    private void Start()
-    {
-
-    }
-
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.G))
-            AddGun();
+        //if (Input.GetKeyDown(KeyCode.G))
+        //    AddGun();
     }
 
     public void Init(Transform player)

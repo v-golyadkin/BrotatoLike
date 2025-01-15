@@ -1,5 +1,4 @@
 using System;
-using TMPro;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -32,10 +31,10 @@ public class Player : PlayerBase
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space)) 
-        {
-            TakeDamage(1);
-        }
+        //if (Input.GetKeyDown(KeyCode.Space)) 
+        //{
+        //    TakeDamage(1);
+        //}
 
         if(_isDead)
         {
